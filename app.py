@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, request
 from flask_restful import Resource, Api
+from flask_sqlalchemy import SQLAlchemy
 from dbmock import clienteDados, necessidadeDados, integradorDados, projetoDados, devDados
 
+
 app = Flask(__name__)
+db = SQLAlchemy(app)
 api = Api(app)
 
 clienteDados = clienteDados()
@@ -26,7 +29,8 @@ class cliente(Resource):
 	
 	@app.route('/cliente/', methods=['POST'])
 	def newUser():
-		return clienteDados.addCliente(request.form)
+		jsonData = request.get_json()
+		return clienteDados.addCliente(jsonData)
 
 	# objeto cliente recebe uma projeto
 	# -> get para ver o projeto;
@@ -43,7 +47,8 @@ class necessidade(Resource):
 	# criar objeto necessidade linkado ao cliente
 	@app.route('/necessidade/', methods=['POST'])
 	def newNecessidade():
-		return necessidadeDados.addNecessidade(request.form)
+		jsonData = request.get_json()
+		return necessidadeDados.addNecessidade(jsonData)
 
 class projeto(Resource):
 	# projeto é um objeto que interliga cliente, necessidade, integrador e devs
@@ -57,7 +62,8 @@ class projeto(Resource):
 	@app.route('/projeto/', methods=['POST'])
 	def newProjeto():
 		if request.form.get('necessidade') != '' and request.form.get('integrador') != '' and request.form.get('cliente') != '':
-			return projetoDados.addProjeto(request.form)
+			jsonData = request.get_json()
+			return projetoDados.addProjeto(jsonData)
 
 class integrador(Resource):
 	@app.route('/integrador/<id>', methods=['GET', 'POST'])
@@ -74,9 +80,6 @@ class devs(Resource):
 			return devDados.getDev(id)
 		else:
 			return devDados.editDev(id)
-
-api.add_resource(HelloWorld, '/')
-api.add_resource(devs, '/devs')
 
 
 if __name__ == '__main__':
