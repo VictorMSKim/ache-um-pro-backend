@@ -24,15 +24,18 @@ class clienteDados:
     
 class necessidadeDados:
 	def __init__(self):
-		self.necessidades = {1:{"clienteID":1, "projetoIDs":1, "descricao": "App para vender bolos"}}
-
+		self.necessidades = {1:{"value": "EXEMPLO", "selectedValue": "EXEMPLO", "endDate": "EXEMPLO", "needF": "EXEMPLO", "clienteID":1, "projetoIDs":1}}
+	
 	def getNecessidade(self, id):
 		if id=='all':
-    			return str(self.necessidades)
+			return str(self.necessidades)
 		return str(self.necessidades[int(id)])
 
 	def addNecessidade(self, data):
+		data['ClienteID'] = 1
+		data['projetoIDs'] = 1
 		self.necessidades.update({(len(self.necessidades)+1): data})
+		return(str(self.necessidades))
 	# criar objeto necessidade linkado ao cliente
 	# -> é um POST (param: cliente), cria uma necessidade para esse cliente
 	

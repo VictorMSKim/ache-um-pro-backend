@@ -3,11 +3,12 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 from dbmock import clienteDados, necessidadeDados, integradorDados, projetoDados, devDados
-
+from flask_cors import CORS
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
 api = Api(app)
+CORS(app) # This will enable CORS for all routes
 
 clienteDados = clienteDados()
 necessidadeDados = necessidadeDados()
@@ -48,6 +49,7 @@ class necessidade(Resource):
 	@app.route('/necessidade/', methods=['POST'])
 	def newNecessidade():
 		jsonData = request.get_json()
+		print(jsonData)
 		return necessidadeDados.addNecessidade(jsonData)
 
 class projeto(Resource):
