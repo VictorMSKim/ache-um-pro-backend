@@ -63,9 +63,9 @@ class projeto(Resource):
 
 	@app.route('/projeto/', methods=['POST'])
 	def newProjeto():
-		if request.form.get('necessidade') != '' and request.form.get('integrador') != '' and request.form.get('cliente') != '':
-			jsonData = request.get_json()
-			return projetoDados.addProjeto(jsonData)
+		## if request.form.get('necessidade') != '' and request.form.get('integrador') != '' and request.form.get('cliente') != '':
+		jsonData = request.get_json()
+		return projetoDados.addProjeto(jsonData)
 
 class integrador(Resource):
 	@app.route('/integrador/<id>', methods=['GET', 'POST'])

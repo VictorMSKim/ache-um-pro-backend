@@ -46,6 +46,7 @@ class projetoDados:
 
 	def addProjeto(self, id):
 		self.projetos.update({(len(self.projetos)+1): id})
+		return "True"
 
 	def editProjeto(self, id):
 		None
